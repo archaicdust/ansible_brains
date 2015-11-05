@@ -1,0 +1,82 @@
+
+- hosts: localhost
+  connection: local
+
+  user: hoy
+
+  sudo: true
+  gather_facts: no
+
+  # tasks:
+  #   - name: updates a server
+  #     apt: update_cache=yes
+
+  # tasks:
+  #   - name: upgrade a server
+  #     apt: upgrade=full
+
+  tasks:
+    - name: install fonts-inconsolata, vim, tmux, meld, ...
+      apt: pkg={{item}} state=installed
+      with_items:
+        - fonts-inconsolata
+        - vim
+        - zsh
+        - tmux
+        - stow
+        - meld
+        - silversearcher-ag
+        - exuberant-ctags
+        - pv
+        - tig
+        - sshfs
+        - guake
+        - tree
+
+    # - name: install virtualbox
+    #   apt: pkg={{item}} state=installed
+    #   with_items:
+    #     - virtualbox4.3
+ 
+    - name: install fcitx
+      apt: pkg={{item}} state=installed
+      with_items:
+        - fcitx
+        - fcitx-config-common 
+        - fcitx-config-gtk
+        - fcitx-config-gtk2
+        - fcitx-frontend-all
+        - fcitx-frontend-gtk2
+        - fcitx-frontend-gtk3
+        - fcitx-ui-classic
+        - fcitx-chewing # 新酷音
+        # - fcitx-table-boshiamy # 嘸蝦米
+
+    - name: install brains compile env
+      apt: pkg={{item}} state=installed
+      with_items:
+        - cmake
+        - python-sqlite
+        - git-core
+        - git-gui
+        - gitk
+        - g++
+        - python-dev
+        - libstdc++5
+        - swig
+        - python-qt4
+        - nfs-kernel-server
+        - autofs
+
+    - name: install pip
+      apt: name=python-pip
+
+    - name: install ipython
+      pip: name=ipython
+
+    - name: install ipdb
+      pip: name=ipdb
+
+    - name: install pyyaml (for fabric_verify)
+      pip: name=pyyaml
+
